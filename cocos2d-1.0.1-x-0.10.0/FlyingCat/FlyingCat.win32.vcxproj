@@ -122,19 +122,27 @@
     </Midl>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="Resources\new_ac_bar-hd.png" />
     <None Include="win32\res\FlyingCat.ico" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="win32\FlyingCat.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Classes\AchievementCore.h" />
+    <ClInclude Include="Classes\AchievementList.h" />
     <ClInclude Include="Classes\AppDelegate.h" />
+    <ClInclude Include="Classes\BtnProtocal.h" />
     <ClInclude Include="Classes\HelloWorldScene.h" />
+    <ClInclude Include="Classes\PixelRatio.h" />
     <ClInclude Include="win32\main.h" />
     <ClInclude Include="win32\resource.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Classes\AchievementCore.cpp" />
+    <ClCompile Include="Classes\AchievementList.cpp" />
     <ClCompile Include="Classes\AppDelegate.cpp" />
+    <ClCompile Include="Classes\BtnProtocal.cpp" />
     <ClCompile Include="Classes\HelloWorldScene.cpp" />
     <ClCompile Include="win32\main.cpp" />
   </ItemGroup>

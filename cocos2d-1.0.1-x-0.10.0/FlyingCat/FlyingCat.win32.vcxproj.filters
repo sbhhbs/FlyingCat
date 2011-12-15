@@ -18,6 +18,9 @@
     <None Include="win32\res\FlyingCat.ico">
       <Filter>resource</Filter>
     </None>
+    <None Include="Resources\new_ac_bar-hd.png">
+      <Filter>resource</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="win32\FlyingCat.rc">
@@ -37,6 +40,18 @@
     <ClInclude Include="Classes\HelloWorldScene.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="Classes\AchievementCore.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\AchievementList.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\PixelRatio.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\BtnProtocal.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="win32\main.cpp">
@@ -46,6 +61,15 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="Classes\HelloWorldScene.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\AchievementCore.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\AchievementList.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\BtnProtocal.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>

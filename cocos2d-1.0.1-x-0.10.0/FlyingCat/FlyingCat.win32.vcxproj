@@ -122,9 +122,6 @@
     </Midl>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="Resources\CloseNormal.png" />
-    <None Include="Resources\CloseSelected.png" />
-    <None Include="Resources\HelloWorld.png" />
     <None Include="win32\res\FlyingCat.ico" />
   </ItemGroup>
   <ItemGroup>

@@ -29,7 +29,7 @@ bool AppDelegate::initInstance()
         // The HelloWorld is designed as HVGA.
         CCEGLView * pMainWnd = new CCEGLView();
         CC_BREAK_IF(! pMainWnd
-            || ! pMainWnd->Create(TEXT("FlyingCat"), 320, 480));
+            || ! pMainWnd->Create(TEXT("FlyingCat"),640 , 960));
 #endif  // CC_PLATFORM_WIN32
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)

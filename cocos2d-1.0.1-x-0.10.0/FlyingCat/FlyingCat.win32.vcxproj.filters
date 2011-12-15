@@ -18,15 +18,6 @@
     <None Include="win32\res\FlyingCat.ico">
       <Filter>resource</Filter>
     </None>
-    <None Include="Resources\CloseSelected.png">
-      <Filter>resource</Filter>
-    </None>
-    <None Include="Resources\CloseNormal.png">
-      <Filter>resource</Filter>
-    </None>
-    <None Include="Resources\HelloWorld.png">
-      <Filter>resource</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="win32\FlyingCat.rc">

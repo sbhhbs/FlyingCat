@@ -11,6 +11,8 @@ public:
 	virtual void playPressed();
 	virtual void creditPressed();
 	virtual void settingPressed();
+	
+	virtual void selectBackPressed();
 
 	virtual void settingSFXPressed();
 	virtual void settingBGMPressed();

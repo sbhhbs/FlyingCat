@@ -55,6 +55,9 @@
     <ClInclude Include="Classes\BaseWorld.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="Classes\BaseCat.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="win32\main.cpp">

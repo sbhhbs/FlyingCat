@@ -129,6 +129,7 @@
     <ResourceCompile Include="win32\FlyingCat.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Classes\BaseCat.h" />
     <ClInclude Include="Classes\AchievementCore.h" />
     <ClInclude Include="Classes\AchievementList.h" />
     <ClInclude Include="Classes\AppDelegate.h" />

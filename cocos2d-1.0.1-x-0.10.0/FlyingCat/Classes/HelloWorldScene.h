@@ -7,6 +7,8 @@
 
 #include "SimpleAudioEngine.h"
 
+USING_NS_CC;
+
 class HelloWorld : public cocos2d::CCLayer
 {
 public:
@@ -15,6 +17,8 @@ public:
 
     // there's no 'id' in cpp, so we recommand to return the exactly class pointer
     static cocos2d::CCScene* scene();
+
+	virtual bool ccTouchBegan(CCTouch *pTouch,CCEvent *pEvent);
 
     // implement the "static node()" method manually
     LAYER_NODE_FUNC(HelloWorld);

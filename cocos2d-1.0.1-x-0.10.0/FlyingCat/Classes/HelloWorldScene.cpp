@@ -1,5 +1,6 @@
 #include "HelloWorldScene.h"
 #include "MovingBackground.h"
+#include "Cat1.h"
 
 using namespace cocos2d;
 
@@ -44,8 +45,35 @@ bool HelloWorld::init()
 
 		this->addChild(bk);
 
+
+
+		Cat1* cat1 = Cat1::node();
+
+		this->addChild(cat1);
+
+		cat1->setPosition(ccp(500,500));
+		cat1->flyUpAnimation();
+		cat1->setTag(1);
+
+		//this->setIsTouchEnabled(true);
+
+		CCTouchDispatcher::sharedDispatcher()->addTargetedDelegate(this,0,true);
+
         bRet = true;
     } while (0);
 
     return bRet;
+}
+
+bool HelloWorld::ccTouchBegan( CCTouch *pTouch,CCEvent *pEvent )
+{
+	static int i = 0;
+	i++;
+
+	Cat1 *cat = (Cat1*) this->getChildByTag(1);
+	if(i % 2)
+		cat->flyDownAnimation();
+	else
+		cat->flyUpAnimation();
+	return true;
 }

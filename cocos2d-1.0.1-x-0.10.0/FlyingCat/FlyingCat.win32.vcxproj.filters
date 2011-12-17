@@ -61,6 +61,9 @@
     <ClInclude Include="Classes\MovingBackground.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="Classes\Cat1.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="win32\main.cpp">
@@ -85,6 +88,9 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="Classes\MovingBackground.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Cat1.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>

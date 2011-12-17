@@ -9,21 +9,21 @@ class BaseCat : public cocos2d::CCSprite
 {
 public:
 	//play some animation here
-	void flyUpAnimation() = 0;
-	void flyDownAnimation() = 0;
-	void crashOnAWallAnimation() = 0;
-	void deadAnimation() = 0;
+	virtual void flyUpAnimation() = 0;
+	virtual void flyDownAnimation() = 0;
+	virtual void crashOnAWallAnimation() = 0;
+	virtual void deadAnimation() = 0;
 	
 
 	//If you want to update something.
 	//rewrite this.
-	void update(ccTime dt) = 0;
+	virtual void update(ccTime dt) = 0;
 	
 
 	//Physics related
-	b2Vec2[] getShape() = 0;
-	float getDensity() = 0;
-	float getFriction() = 0;
-	float getRestitution() = 0;
+	virtual b2Vec2[] getShape() = 0;
+	virtual float getDensity() = 0;
+	virtual float getFriction() = 0;
+	virtual float getRestitution() = 0;
 	
 };

@@ -1,4 +1,5 @@
 #include "HelloWorldScene.h"
+#include "MovingBackground.h"
 
 using namespace cocos2d;
 
@@ -38,6 +39,10 @@ bool HelloWorld::init()
         //////////////////////////////////////////////////////////////////////////
         // add your codes below...
         //////////////////////////////////////////////////////////////////////////
+
+		MovingBackground *bk = MovingBackground::node();
+
+		this->addChild(bk);
 
         bRet = true;
     } while (0);

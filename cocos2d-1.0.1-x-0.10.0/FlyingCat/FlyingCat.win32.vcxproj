@@ -135,6 +135,7 @@
     <ClInclude Include="Classes\AppDelegate.h" />
     <ClInclude Include="Classes\BtnProtocal.h" />
     <ClInclude Include="Classes\HelloWorldScene.h" />
+    <ClInclude Include="Classes\MovingBackground.h" />
     <ClInclude Include="Classes\PixelRatio.h" />
     <ClInclude Include="Classes\BaseWorld.h" />
     <ClInclude Include="win32\main.h" />
@@ -147,6 +148,7 @@
     <ClCompile Include="Classes\BaseWorld.cpp" />
     <ClCompile Include="Classes\BtnProtocal.cpp" />
     <ClCompile Include="Classes\HelloWorldScene.cpp" />
+    <ClCompile Include="Classes\MovingBackground.cpp" />
     <ClCompile Include="win32\main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

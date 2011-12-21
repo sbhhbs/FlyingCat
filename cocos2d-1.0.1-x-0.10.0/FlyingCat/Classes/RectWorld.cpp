@@ -47,12 +47,6 @@ bool RectWorld::init()
         // Create a "close" menu item with close icon, it's an auto release object.
 
         // Create a menu with the "close" menu item, it's an auto release object.
-        CCMenu* pMenu = CCMenu::menuWithItems(pCloseItem, NULL);
-        pMenu->setPosition(CCPointZero);
-        CC_BREAK_IF(! pMenu);
-
-        // Add the menu to HelloWorld layer as a child layer.
-        this->addChild(pMenu, 1);
 
         // Get window size and place the label upper. 
         CCSize size = CCDirector::sharedDirector()->getWinSize();
@@ -196,7 +190,7 @@ void RectWorld :: addTarget()
 	_barriers->addObject(barrier);
 
 	CCFiniteTimeAction* actionMove = CCMoveTo::actionWithDuration((ccTime)actualDuration, ccp(0 - barrier->getContentSize().width / 2, initialY));
-	CCFiniteTimeAction* actionMoveDone = CCCallFuncN::actionWithTarget(this, callfuncN_selector(HelloWorld::spriteMoveFinished));
+	CCFiniteTimeAction* actionMoveDone = CCCallFuncN::actionWithTarget(this, callfuncN_selector(RectWorld::spriteMoveFinished));
 
 	barrier->runAction(CCSequence::actions(actionMove, actionMoveDone, NULL));
 

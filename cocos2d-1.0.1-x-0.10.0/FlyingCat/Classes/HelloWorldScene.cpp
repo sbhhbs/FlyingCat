@@ -1,6 +1,7 @@
 #include "HelloWorldScene.h"
 #include "MovingBackground.h"
 #include "Cat1.h"
+#include "RectWorld.h"
 #include "ScoreLayer.h"
 
 using namespace cocos2d;
@@ -42,27 +43,28 @@ bool HelloWorld::init()
         // add your codes below...
         //////////////////////////////////////////////////////////////////////////
 
-		MovingBackground *bk = MovingBackground::node();
-
-		this->addChild(bk);
-
-
 
 		Cat1* cat1 = Cat1::node();
 
-		this->addChild(cat1);
-
+		this->addChild(cat1, 1);
+		 
 		cat1->setPosition(ccp(500,500));
-		cat1->flyUpAnimation();
+		cat1->flyUpAnimation(); 
 		cat1->setTag(1);
+
+		
+		
 
 
 		ScoreLayer *scores = ScoreLayer::node();
 		scores->setTag(2);
 
 
-		this->addChild(scores);
+		this->addChild(scores, 2);
 		//this->setIsTouchEnabled(true);
+		
+		RectWorld *rectWorld = RectWorld::node();
+		this->addChild(rectWorld, 0);
 
 		CCTouchDispatcher::sharedDispatcher()->addTargetedDelegate(this,0,true);
 

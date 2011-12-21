@@ -73,6 +73,9 @@
     <ClInclude Include="Classes\ScoreLayer.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="Classes\RectWorld.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="win32\main.cpp">
@@ -109,6 +112,9 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="Classes\ScoreLayer.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\RectWorld.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>

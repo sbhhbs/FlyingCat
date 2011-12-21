@@ -141,6 +141,7 @@
     <ClInclude Include="Classes\MyUserDefault.h" />
     <ClInclude Include="Classes\PixelRatio.h" />
     <ClInclude Include="Classes\BaseWorld.h" />
+    <ClInclude Include="Classes\ScoreLayer.h" />
     <ClInclude Include="win32\main.h" />
     <ClInclude Include="win32\resource.h" />
   </ItemGroup>
@@ -155,6 +156,7 @@
     <ClCompile Include="Classes\HelloWorldScene.cpp" />
     <ClCompile Include="Classes\MovingBackground.cpp" />
     <ClCompile Include="Classes\MyUserDefault.cpp" />
+    <ClCompile Include="Classes\ScoreLayer.cpp" />
     <ClCompile Include="win32\main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,6 +1,7 @@
 #include "HelloWorldScene.h"
 #include "MovingBackground.h"
 #include "Cat1.h"
+#include "ScoreLayer.h"
 
 using namespace cocos2d;
 
@@ -55,6 +56,12 @@ bool HelloWorld::init()
 		cat1->flyUpAnimation();
 		cat1->setTag(1);
 
+
+		ScoreLayer *scores = ScoreLayer::node();
+		scores->setTag(2);
+
+
+		this->addChild(scores);
 		//this->setIsTouchEnabled(true);
 
 		CCTouchDispatcher::sharedDispatcher()->addTargetedDelegate(this,0,true);
@@ -71,9 +78,17 @@ bool HelloWorld::ccTouchBegan( CCTouch *pTouch,CCEvent *pEvent )
 	i++;
 
 	Cat1 *cat = (Cat1*) this->getChildByTag(1);
+
+	ScoreLayer *scores = (ScoreLayer*) this->getChildByTag(2);
 	if(i % 2)
+	{
 		cat->flyDownAnimation();
+		scores->appear();
+	}
 	else
+	{
 		cat->flyUpAnimation();
+		scores->disappear();
+	}
 	return true;
 }

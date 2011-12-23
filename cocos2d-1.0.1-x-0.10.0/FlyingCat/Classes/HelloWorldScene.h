@@ -20,6 +20,8 @@ public:
 
 	virtual bool ccTouchBegan(CCTouch *pTouch,CCEvent *pEvent);
 
+	virtual void ccTouchEnded(CCTouch*, CCEvent*);
+
     // implement the "static node()" method manually
     LAYER_NODE_FUNC(HelloWorld);
 };

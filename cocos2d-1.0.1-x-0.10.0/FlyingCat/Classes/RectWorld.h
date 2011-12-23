@@ -38,9 +38,7 @@ public:
 
 
 protected:
-	CCSprite* _player;
 	CCMutableArray<CCSprite*> *_barriers;
-	CCParticleSystem* _particle;
 
 	int _flyState;
 	int _speed;

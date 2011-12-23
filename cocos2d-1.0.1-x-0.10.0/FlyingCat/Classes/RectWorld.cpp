@@ -2,6 +2,7 @@
 #include "ccMacros.h"
 #include "MovingBackground.h"
 #include "string"
+#include "Cat1.h"
 
 using namespace cocos2d;
 
@@ -86,8 +87,6 @@ void RectWorld::menuCloseCallback(CCObject* pSender)
 
 RectWorld :: RectWorld()
 {
-	_player = NULL;
-	_particle = NULL;
 	_flyState = false; 
 	_speed = 4;
 	_barriers = new CCMutableArray<CCSprite*>();
@@ -109,38 +108,47 @@ RectWorld :: ~RectWorld()
 bool RectWorld :: ccTouchBegan(CCTouch* touch, CCEvent* event)
 {
 	CCPoint location = touch->locationInView(touch->view());
+	Cat1 *cat1 = (Cat1*)this->getChildByTag(1);
 
 	if(location.x > 480)
 		_flyState = 2;
 	else
 		_flyState = 1;
-
+	cat1->flyUpAnimation(); 
 	return true;
 }
 
 void RectWorld :: ccTouchEnded(CCTouch* touch, CCEvent* event)
 {
+	Cat1 *cat1 = (Cat1*)this->getChildByTag(1);
+
+	cat1->flyDownAnimation();
 	_flyState = 0;
 }
 
 void RectWorld :: update(ccTime dt)
 {
-	if(_player == NULL)
+	Cat1 *cat1 = (Cat1*)this->getChildByTag(1);
+
+	if(cat1 == NULL)
 		return;
 
 	if(_flyState == 2)
 	{
-		_player->setPosition(ccp(_player->getPosition().x, _player->getPosition().y - (float)_speed / 3));
+		cat1->setPosition(ccp(cat1->getPosition().x, cat1->getPosition().y - (float)_speed / 3));
 	}
 	if(_flyState == 1)
 	{
-		if(_player->getPosition().y + _speed + _player->getContentSize().height / 2 >= 640)
-			_player->setPosition(ccp(_player->getPosition().x, 640 - _player->getContentSize().height / 2));
-		_player->setPosition(ccp(_player->getPosition().x, _player->getPosition().y + _speed));
+		if(cat1->getPosition().y + _speed + cat1->getBody()->getContentSize().height / 2 >= 640)
+			cat1->setPosition(ccp(cat1->getPosition().x, 640 - cat1->getBody()->getContentSize().height / 2));
+		cat1->setPosition(ccp(cat1->getPosition().x, cat1->getPosition().y + _speed));
 	}
 	else if (_flyState == 0)
 	{
-		_player->setPosition(ccp(_player->getPosition().x, _player->getPosition().y - _speed));
+		if(cat1->getPosition().y - _speed + cat1->getBody()->getContentSize().height / 2 <= 0)
+			cat1->setPosition(ccp(cat1->getPosition().x, cat1->getBody()->getContentSize().height / 2));
+		else
+			cat1->setPosition(ccp(cat1->getPosition().x, cat1->getPosition().y - _speed));
 	}
 }
 

@@ -43,28 +43,27 @@ bool HelloWorld::init()
         // add your codes below...
         //////////////////////////////////////////////////////////////////////////
 
+		RectWorld *rectWorld = RectWorld::node();
+		rectWorld->setTag(3);
+
+		this->addChild(rectWorld, 0);
+
 
 		Cat1* cat1 = Cat1::node();
 
-		this->addChild(cat1, 1);
-		 
-		cat1->setPosition(ccp(500,500));
+		cat1->setPosition(ccp(200,200));
 		cat1->flyUpAnimation(); 
 		cat1->setTag(1);
 
-		
-		
-
+		rectWorld->addChild(cat1, 1);
+		 
 
 		ScoreLayer *scores = ScoreLayer::node();
 		scores->setTag(2);
-
+		scores->appear();
 
 		this->addChild(scores, 2);
 		//this->setIsTouchEnabled(true);
-		
-		RectWorld *rectWorld = RectWorld::node();
-		this->addChild(rectWorld, 0);
 
 		CCTouchDispatcher::sharedDispatcher()->addTargetedDelegate(this,0,true);
 
@@ -79,18 +78,38 @@ bool HelloWorld::ccTouchBegan( CCTouch *pTouch,CCEvent *pEvent )
 	static int i = 0;
 	i++;
 
-	Cat1 *cat = (Cat1*) this->getChildByTag(1);
+	/*Cat1 *cat = (Cat1*) this->getChildByTag(1);
 
 	ScoreLayer *scores = (ScoreLayer*) this->getChildByTag(2);
 	if(i % 2)
 	{
 		cat->flyDownAnimation();
-		scores->appear();
+		
 	}
 	else
 	{
 		cat->flyUpAnimation();
 		scores->disappear();
+	}*/
+
+	RectWorld* rectWorld = (RectWorld*)this->getChildByTag(3);
+
+	if (rectWorld != NULL)
+	{
+		rectWorld->ccTouchBegan(pTouch, pEvent);
 	}
+
 	return true;
+}
+
+
+void HelloWorld :: ccTouchEnded(CCTouch* touch, CCEvent* event)
+{
+	RectWorld* rectWorld = (RectWorld*)this->getChildByTag(3);
+
+	if (rectWorld != NULL)
+	{
+		rectWorld->ccTouchEnded(touch, event);
+	}
+
 }

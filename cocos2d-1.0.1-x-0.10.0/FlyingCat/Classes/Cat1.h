@@ -19,6 +19,10 @@ public:
 	virtual float getDensity();
 	virtual float getFriction();
 	virtual float getRestitution();
+	
+public:
+	//Getter
+	virtual CCSprite* getBody();	
 
 private:
 	CCSprite *body;

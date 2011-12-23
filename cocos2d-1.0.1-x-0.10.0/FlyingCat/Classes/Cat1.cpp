@@ -41,7 +41,7 @@ bool Cat1::init()
 
 void Cat1::flyUpAnimation()
 {
-	float animationTime = 0.25f;
+	float animationTime = 0.1f;
 	this->runAction(CCRotateTo::actionWithDuration(animationTime,-20));
 	foreWing->runAction(CCRepeatForever::actionWithAction(CCSequence::actionOneTwo(CCRotateTo::actionWithDuration(animationTime,20),CCRotateTo::actionWithDuration(animationTime,0))));
 	backWing->runAction(CCRepeatForever::actionWithAction(CCSequence::actionOneTwo(CCRotateTo::actionWithDuration(animationTime,20),CCRotateTo::actionWithDuration(animationTime,0))));
@@ -50,7 +50,7 @@ void Cat1::flyUpAnimation()
 void Cat1::flyDownAnimation()
 {
 
-	float animationTime = 0.25f;
+	float animationTime = 0.1f;
 	this->runAction(CCRotateTo::actionWithDuration(animationTime,20));
 	foreWing->stopAllActions();
 	backWing->stopAllActions();
@@ -89,4 +89,10 @@ b2Vec2* Cat1::getShape()
 {
 	return NULL;
 }
+
+CCSprite* Cat1::getBody()
+{
+	return body;
+}
+
 

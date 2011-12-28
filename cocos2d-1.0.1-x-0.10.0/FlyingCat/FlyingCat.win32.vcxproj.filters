@@ -73,6 +73,15 @@
     <ClInclude Include="Classes\ScoreLayer.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="Classes\Hero.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\Terrain.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\TinyWing.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="win32\main.cpp">
@@ -109,6 +118,15 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="Classes\ScoreLayer.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Hero.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Terrain.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\TinyWing.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>

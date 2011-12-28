@@ -2,6 +2,7 @@
 #include "MovingBackground.h"
 #include "Cat1.h"
 #include "ScoreLayer.h"
+#include "TinyWing.h"
 
 using namespace cocos2d;
 
@@ -46,25 +47,9 @@ bool HelloWorld::init()
 
 		this->addChild(bk);
 
+		TinyWing * tinyWing = TinyWing::node();
 
-
-		Cat1* cat1 = Cat1::node();
-
-		this->addChild(cat1);
-
-		cat1->setPosition(ccp(500,500));
-		cat1->flyUpAnimation();
-		cat1->setTag(1);
-
-
-		ScoreLayer *scores = ScoreLayer::node();
-		scores->setTag(2);
-
-
-		this->addChild(scores);
-		//this->setIsTouchEnabled(true);
-
-		CCTouchDispatcher::sharedDispatcher()->addTargetedDelegate(this,0,true);
+		this->addChild(tinyWing);
 
         bRet = true;
     } while (0);

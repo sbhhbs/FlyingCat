@@ -136,12 +136,15 @@
     <ClInclude Include="Classes\BtnProtocal.h" />
     <ClInclude Include="Classes\Cat1.h" />
     <ClInclude Include="Classes\DataCore.h" />
+    <ClInclude Include="Classes\TinyWing.h" />
     <ClInclude Include="Classes\HelloWorldScene.h" />
+    <ClInclude Include="Classes\Hero.h" />
     <ClInclude Include="Classes\MovingBackground.h" />
     <ClInclude Include="Classes\MyUserDefault.h" />
     <ClInclude Include="Classes\PixelRatio.h" />
     <ClInclude Include="Classes\BaseWorld.h" />
     <ClInclude Include="Classes\ScoreLayer.h" />
+    <ClInclude Include="Classes\Terrain.h" />
     <ClInclude Include="win32\main.h" />
     <ClInclude Include="win32\resource.h" />
   </ItemGroup>
@@ -153,10 +156,13 @@
     <ClCompile Include="Classes\BtnProtocal.cpp" />
     <ClCompile Include="Classes\Cat1.cpp" />
     <ClCompile Include="Classes\DataCore.cpp" />
+    <ClCompile Include="Classes\TinyWing.cpp" />
     <ClCompile Include="Classes\HelloWorldScene.cpp" />
+    <ClCompile Include="Classes\Hero.cpp" />
     <ClCompile Include="Classes\MovingBackground.cpp" />
     <ClCompile Include="Classes\MyUserDefault.cpp" />
     <ClCompile Include="Classes\ScoreLayer.cpp" />
+    <ClCompile Include="Classes\Terrain.cpp" />
     <ClCompile Include="win32\main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

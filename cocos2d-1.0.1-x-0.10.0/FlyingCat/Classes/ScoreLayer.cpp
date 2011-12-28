@@ -44,6 +44,8 @@ bool ScoreLayer::init()
 		this->addChild(starLabel);
 		this->addChild(distanceLabel);
 
+
+
 		bRet = true;
 	} while (0);
 
@@ -132,4 +134,26 @@ void ScoreLayer::disappear()
 
 }
 
+
+long ScoreLayer :: getCurrentDistance()
+{
+	return currentDistance;
+}
+
+long ScoreLayer ::getCurrentStar()
+{
+	return currentStar;
+}
+
+long ScoreLayer :: getBest()
+{
+	return best;
+}
+
+ScoreLayer :: ScoreLayer()
+{
+	currentStar = 0;
+	currentDistance = 0;
+	best = 0;
+}
 

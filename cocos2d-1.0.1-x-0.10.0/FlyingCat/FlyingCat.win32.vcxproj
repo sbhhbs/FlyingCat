@@ -136,6 +136,7 @@
     <ClInclude Include="Classes\BtnProtocal.h" />
     <ClInclude Include="Classes\Cat1.h" />
     <ClInclude Include="Classes\DataCore.h" />
+    <ClInclude Include="Classes\Pause.h" />
     <ClInclude Include="Classes\HelloWorldScene.h" />
     <ClInclude Include="Classes\MovingBackground.h" />
     <ClInclude Include="Classes\MyUserDefault.h" />
@@ -143,6 +144,7 @@
     <ClInclude Include="Classes\BaseWorld.h" />
     <ClInclude Include="Classes\RectWorld.h" />
     <ClInclude Include="Classes\ScoreLayer.h" />
+    <ClInclude Include="Classes\TimeLayer.h" />
     <ClInclude Include="win32\main.h" />
     <ClInclude Include="win32\resource.h" />
   </ItemGroup>
@@ -159,6 +161,8 @@
     <ClCompile Include="Classes\MyUserDefault.cpp" />
     <ClCompile Include="Classes\RectWorld.cpp" />
     <ClCompile Include="Classes\ScoreLayer.cpp" />
+    <ClCompile Include="Classes\Pause.cpp" />
+    <ClCompile Include="Classes\TimeLayer.cpp" />
     <ClCompile Include="win32\main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

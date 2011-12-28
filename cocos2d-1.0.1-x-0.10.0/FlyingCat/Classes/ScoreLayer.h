@@ -8,6 +8,9 @@ USING_NS_CC;
 class ScoreLayer : public cocos2d::CCLayer
 {
 public:
+	ScoreLayer();
+
+public:
 	// Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
 	virtual bool init();  
 
@@ -17,11 +20,15 @@ public:
 
 	void setCurrentDistance(long distance);
 
-	
 	void appear();
 
 	void disappear();
 
+	long getCurrentStar();
+
+	long getCurrentDistance();
+
+	long getBest();
 
 	// implement the "static node()" method manually
 	LAYER_NODE_FUNC(ScoreLayer);

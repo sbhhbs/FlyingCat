@@ -52,7 +52,7 @@ bool HelloWorld::init()
 		Cat1* cat1 = Cat1::node();
 
 		cat1->setPosition(ccp(200,200));
-		cat1->flyUpAnimation(); 
+		cat1->flyDownAnimation(); 
 		cat1->setTag(1);
 
 		rectWorld->addChild(cat1, 1);
@@ -62,7 +62,7 @@ bool HelloWorld::init()
 		scores->setTag(2);
 		scores->appear();
 
-		this->addChild(scores, 2);
+		rectWorld->addChild(scores, 2);
 		//this->setIsTouchEnabled(true);
 
 		CCTouchDispatcher::sharedDispatcher()->addTargetedDelegate(this,0,true);
@@ -75,9 +75,6 @@ bool HelloWorld::init()
 
 bool HelloWorld::ccTouchBegan( CCTouch *pTouch,CCEvent *pEvent )
 {
-	static int i = 0;
-	i++;
-
 	/*Cat1 *cat = (Cat1*) this->getChildByTag(1);
 
 	ScoreLayer *scores = (ScoreLayer*) this->getChildByTag(2);
@@ -91,7 +88,7 @@ bool HelloWorld::ccTouchBegan( CCTouch *pTouch,CCEvent *pEvent )
 		cat->flyUpAnimation();
 		scores->disappear();
 	}*/
-
+	   
 	RectWorld* rectWorld = (RectWorld*)this->getChildByTag(3);
 
 	if (rectWorld != NULL)

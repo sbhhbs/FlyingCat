@@ -76,6 +76,12 @@
     <ClInclude Include="Classes\RectWorld.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="Classes\Pause.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\TimeLayer.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="win32\main.cpp">
@@ -115,6 +121,12 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="Classes\RectWorld.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Pause.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\TimeLayer.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>

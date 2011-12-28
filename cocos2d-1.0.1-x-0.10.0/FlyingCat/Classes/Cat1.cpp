@@ -24,9 +24,10 @@ bool Cat1::init()
 		foreWing->setAnchorPoint(ccp(1.0f,0.2f));
 		backWing->setAnchorPoint(ccp(1.0f,0.2f));
 
-		foreWing->setPosition(ccp(20,-10));
-		backWing->setPosition(ccp(35,-10));
+		foreWing->setPosition(ccp(20 - (body->getPosition().x - body->getContentSize().width) / 2,-10 + abs(body->getPosition() . y - body->getContentSize().height) / 2));
+		backWing->setPosition(ccp(35 - (body->getPosition().x - body->getContentSize().width) / 2,-10 + abs(body->getPosition() . y - body->getContentSize().height) / 2));
 
+		body->setPosition(ccp(body->getContentSize().width / 2, body->getContentSize().height / 2));
 
 		this->addChild(backWing);
 		this->addChild(body);

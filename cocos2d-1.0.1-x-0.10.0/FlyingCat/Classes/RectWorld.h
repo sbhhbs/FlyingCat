@@ -4,10 +4,11 @@
 #include "cocos2d.h"
 
 #include "SimpleAudioEngine.h"
+#include "BtnProtocal.h"
 
 using namespace cocos2d;
 
-class RectWorld : public cocos2d::CCLayer
+class RectWorld : public cocos2d::CCLayerColor, public BtnProtocal
 {
 public:
 	RectWorld();
@@ -21,7 +22,7 @@ public:
     static cocos2d::CCScene* scene();
     
     // a selector callback
-    virtual void menuCloseCallback(CCObject* pSender);
+    virtual void menuPause(CCObject* pSender);
 
     // implement the "static node()" method manually
     LAYER_NODE_FUNC(RectWorld);
@@ -36,12 +37,21 @@ public:
 
 	void gameLogic(ccTime);
 
+	void setType(int);
 
+	void clockPassBy(ccTime);
+
+	virtual void pauseResumePressed();
 protected:
 	CCMutableArray<CCSprite*> *_barriers;
-
+	CCMutableArray<CCSprite*> *_stars;
+	bool _gameOver;
+	bool _running;
 	int _flyState;
-	int _speed;
+	int _type;
+	float _gravityAccelerate;
+	float _motiveAccelerate;
+	float _currentSpeed;
 };
 
 #endif  // __HELLOWORLD_SCENE_H__

@@ -50,3 +50,8 @@ void BtnProtocal::pauseResumePressed()
 {
 
 }
+
+void BtnProtocal::selectBackPressed()
+{
+
+}

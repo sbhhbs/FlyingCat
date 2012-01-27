@@ -51,6 +51,7 @@ bool TinyWing::init()
 
 		//terrain->setScale(0.25);
 
+		terrain->setAnchorPoint(ccp(1,0));
 
 		this->addChild(terrain);
 
@@ -77,14 +78,17 @@ void TinyWing::update( ccTime dt )
 	terrain->setScale(scale);
 
 
+
 	if (_tapDown) {
 		if (!_hero->_awake) {
 			_hero->wake();
 			_tapDown = false;
 		} else {
 			_hero->dive();
+			
 		}
 	}
+	
 	_hero->limitVelocity();
 //	[_hero limitVelocity];
 
@@ -121,37 +125,39 @@ void TinyWing::update( ccTime dt )
 
 void TinyWing::setupWorld()
 {
-	b2Vec2 gravity = b2Vec2(0.0f, -7.0f);
+	b2Vec2 gravity = b2Vec2(0.0f, -10);
 	bool doSleep = true;
 	_world = new b2World(gravity);
 	_world->SetAllowSleeping(true);
 }
 
-void TinyWing::createTestBodyAtPostition( CCPoint position )
-{
-	b2BodyDef testBodyDef;
-	testBodyDef.type = b2_dynamicBody;
-	testBodyDef.position.Set(position.x/PTM_RATIO, position.y/PTM_RATIO);
-	b2Body * testBody = _world->CreateBody(&testBodyDef);
-
-	b2CircleShape testBodyShape;
-	b2FixtureDef testFixtureDef;
-	testBodyShape.m_radius = 25.0/PTM_RATIO;
-	testFixtureDef.shape = &testBodyShape;
-	testFixtureDef.density = 1.0;
-	testFixtureDef.friction = 0.2;
-	testFixtureDef.restitution = 0.5;
-	testBody->CreateFixture(&testFixtureDef);
-}
+// void TinyWing::createTestBodyAtPostition( CCPoint position )
+// {
+// 	b2BodyDef testBodyDef;
+// 	testBodyDef.type = b2_dynamicBody;
+// 	testBodyDef.position.Set(position.x/PTM_RATIO, position.y/PTM_RATIO);
+// 	b2Body * testBody = _world->CreateBody(&testBodyDef);
+// 
+// 	b2CircleShape testBodyShape;
+// 	b2FixtureDef testFixtureDef;
+// 	testBodyShape.m_radius = 25.0/PTM_RATIO;
+// 	testFixtureDef.shape = &testBodyShape;
+// 	testFixtureDef.density = 1.0;
+// 	testFixtureDef.friction = 0.2;
+// 	testFixtureDef.restitution = 0.5;
+// 	testBody->CreateFixture(&testFixtureDef);
+// }
 
 bool TinyWing::ccTouchBegan( CCTouch *pTouch, CCEvent *pEvent )
 {
 	 _tapDown = true; 
+	 _hero->cat->flyDownAnimation();
 	 return true;
 }
 
 void TinyWing::ccTouchEnded( CCTouch *pTouch, CCEvent *pEvent )
 {
 	_tapDown = false; 
+	_hero->cat->flyUpAnimation();
 }
 

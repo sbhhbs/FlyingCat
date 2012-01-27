@@ -3,6 +3,7 @@
 #include "cocos2d.h"
 
 #include "Box2D/Box2D.h"
+#include "Cat1.h"
 
 #ifndef PTM_RATIO
 #define PTM_RATIO   32.0
@@ -25,6 +26,7 @@ public:
 	void dive();
 	void limitVelocity();
 
+	Cat1 * cat;
 
 	bool initWithWorld(b2World * world);
 

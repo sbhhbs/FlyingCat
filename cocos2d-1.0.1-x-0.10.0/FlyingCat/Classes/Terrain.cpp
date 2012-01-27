@@ -16,8 +16,8 @@ void Terrain::generateHills()
 
 	float dy, ny;
 	float sign = 1; // +1 - going up, -1 - going  down
-	float paddingTop = 20;
-	float paddingBottom = 20;
+	float paddingTop = 20 * 2;
+	float paddingBottom = 20 * 2;
 
 	for (int i=0; i<kMaxHillKeyPoints; i++) {
 		_hillKeyPoints[i] = ccp(x, y);
@@ -141,6 +141,11 @@ void Terrain::resetHillVertices()
 	while (_hillKeyPoints[_toKeyPointI].x < _offsetX+winSize.width*9/8/this->getScale()) {
 		_toKeyPointI++;
 	}
+	
+	_fromKeyPointI--;
+	if(_fromKeyPointI < 0) _fromKeyPointI = 0;
+
+
 	if (prevFromKeyPointI != _fromKeyPointI || prevToKeyPointI != _toKeyPointI) {
 
 		// vertices for visible area

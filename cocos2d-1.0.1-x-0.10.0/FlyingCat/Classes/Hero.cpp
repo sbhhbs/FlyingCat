@@ -3,7 +3,7 @@
 
 void Hero::createBody()
 {
-	float radius = 16.0f;
+	float radius = 32.0f;
 	CCSize size = CCDirector::sharedDirector()->getWinSize();
 	int screenH = size.height;
 
@@ -21,9 +21,9 @@ void Hero::createBody()
 
 	b2FixtureDef fd;
 	fd.shape = &shape;
-	fd.density = 1.0f;
+	fd.density = 0.5f;
 	fd.restitution = 0.0f;
-	fd.friction = 0.2;
+	fd.friction = 0.1;
 
 	_body->CreateFixture(&fd);
 }
@@ -57,7 +57,12 @@ bool Hero::initWithWorld( b2World * world )
 		// super init first
 		//////////////////////////////////////////////////////////////////////////
 
-		CC_BREAK_IF(! CCSprite::initWithFile("star.png"));
+		CC_BREAK_IF(! CCSprite::init());
+		
+		cat = Cat1::node();
+		
+		this->addChild(cat);
+
 		_nextVel = 0;
 		this->_world = world;
 		this->createBody();
@@ -74,12 +79,12 @@ void Hero::wake()
 {
 	_awake = true;
 	_body->SetActive(true);
-	_body->ApplyLinearImpulse(b2Vec2(1,2), _body->GetPosition());
+	_body->ApplyLinearImpulse(b2Vec2(2,4), _body->GetPosition());
 }
 
 void Hero::dive()
 {
-	_body->ApplyForce(b2Vec2(5,-50),_body->GetPosition());
+	_body->ApplyForce(b2Vec2(10,-100),_body->GetPosition());
 }
 
 void Hero::limitVelocity()

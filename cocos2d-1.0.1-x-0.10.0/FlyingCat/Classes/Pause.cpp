@@ -49,7 +49,7 @@ bool Pause :: init()
 		_distanceLabel->setPosition(ccp(winSize.width / 2 - back->getContentSize().width / 2 + _distanceLabel->getContentSize().width / 2, 
 			_title->getPosition().y - _title->getContentSize().height / 2 -  _distanceLabel->getContentSize().height / 2 ));
 
-		_currentDistance->setPosition(ccp(back->getPosition().x + back->getContentSize().width / 2 - 80 - _currentDistance->getContentSize().width / 2, 
+		_currentDistance->setPosition(ccp(back->getPosition().x +  back->getContentSize().width / 2 - 80 - _currentDistance->getContentSize().width / 2, 
 			_title->getPosition().y - _title->getContentSize().height / 2 -  _distanceLabel->getContentSize().height / 2));
 
 		_starLabel->setPosition(ccp(winSize.width / 2 - back->getContentSize().width / 2 + _starLabel->getContentSize().width / 2 - 40, 

@@ -34,7 +34,6 @@ bool TimeLayer ::decreaseCollisionTime()
 	if (_clockTick)
 	{
 		char buffer[64];
-
 		if (_restTime - _collisionUnitTime < 0)
 			_restTime = 0;
 		else
@@ -43,6 +42,9 @@ bool TimeLayer ::decreaseCollisionTime()
 		sprintf(buffer,"Time Left : %d",_restTime);
 
 		_timeLabel->setString(buffer);
+
+		if (_restTime <= 10)
+			_timeLabel->setColor(ccc3(255, 0, 0));
 
 		_clockTick = false;
 	}

@@ -1,3 +1,6 @@
+// @ Author : Trine
+// @ Last Modified : 2012/1/30
+
 #ifndef __RECTORLD_SCENE_H__
 #define __RECTORLD_SCENE_H__
 
@@ -5,6 +8,7 @@
 
 #include "SimpleAudioEngine.h"
 #include "BtnProtocal.h"
+#include "Warning.h"
 
 using namespace cocos2d;
 
@@ -35,11 +39,15 @@ public:
 
 	void spriteMoveFinished(CCNode*); 
 
+	void removeWarning(CCNode* sender);
+
 	void gameLogic(ccTime);
 
 	void setType(int);
 
 	void clockPassBy(ccTime);
+
+	void removeObjects(ccTime dt);
 
 	virtual void pauseResumePressed();
 protected:

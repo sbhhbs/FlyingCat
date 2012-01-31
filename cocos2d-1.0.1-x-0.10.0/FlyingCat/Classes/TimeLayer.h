@@ -1,3 +1,6 @@
+// @ Author : Trine
+// @ Last Modified : 2012/1/30
+
 #pragma once
 
 #include "cocos2d.h"

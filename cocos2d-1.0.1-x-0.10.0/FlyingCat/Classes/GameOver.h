@@ -1,8 +1,8 @@
 // @ Author: Trine
 // @ Last Modified : 2012/1/30
 
-#ifndef _PAUSE_H_
-#define _PAUSE_H_
+#ifndef _GAME_OVER_H_
+#define _GAME_OVER_H_
 
 #include "cocos2d.h"
 #include "BtnProtocal.h"
@@ -11,7 +11,7 @@
 
 using namespace cocos2d;
 
-class Pause : public CCLayerColor
+class GameOver : public CCLayerColor
 {
 public:
 	// Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
@@ -24,20 +24,20 @@ public:
 
 	void setStar(long);
 
-	void gameResume(CCObject*);
+	void gameRestart(CCObject*);
 
 	void mainMenu(CCObject*);
 
 	void setDelegate(BtnProtocal *iamadelegate);
 	// implement the "static node()" method manually
-	LAYER_NODE_FUNC(Pause);
+	LAYER_NODE_FUNC(GameOver);
 protected:
-	CCLabelBMFont *_currentDistance;
-	CCLabelBMFont *_currentStar;
+	CCLabelBMFont *_finalDistance;
+	CCLabelBMFont *_finalStar;
 	CCLabelBMFont *_title;
 	CCLabelBMFont *_distanceLabel;
 	CCLabelBMFont *_starLabel;
-	CCLabelBMFont *_resume;
+	CCLabelBMFont *_restart;
 	CCLabelBMFont *_mainMenu;
 
 	BtnProtocal   *_delegate;

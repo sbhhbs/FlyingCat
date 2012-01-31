@@ -82,6 +82,12 @@
     <ClInclude Include="Classes\TimeLayer.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="Classes\Warning.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\GameOver.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="win32\main.cpp">
@@ -127,6 +133,12 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="Classes\TimeLayer.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Warning.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\GameOver.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>

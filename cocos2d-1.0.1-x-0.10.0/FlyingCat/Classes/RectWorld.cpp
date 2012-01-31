@@ -5,6 +5,7 @@
 #include "Cat1.h"
 #include "Pause.h"
 #include "ScoreLayer.h"
+#include "Warning.h"
 #include "TimeLayer.h"
 
 using namespace cocos2d;
@@ -63,6 +64,13 @@ bool RectWorld::init()
 		// Add the menu to HelloWorld layer as a child layer.
 		this->addChild(pMenu, 10);
 
+		// Add the warning layer
+		Warning *warning = Warning :: node();
+		
+		warning->setIsVisible(false);
+		warning->setTag(20);
+		this->addChild(warning, 20);
+
         // Create a "close" menu item with close icon, it's an auto release object.
 
         // Create a menu with the "close" menu item, it's an auto release object.
@@ -88,6 +96,7 @@ bool RectWorld::init()
 		//this->schedule(schedule_selector(RectWorld::collision));
 		this->schedule(schedule_selector(RectWorld::gameLogic), 1.0);
 		this->schedule(schedule_selector(RectWorld::update));
+		this->schedule(schedule_selector(RectWorld::removeObjects, 1.0f));
 		
 
 		//CCTouchDispatcher::sharedDispatcher()->addTargetedDelegate(this,0,true);
@@ -285,8 +294,14 @@ void RectWorld :: update(ccTime dt)
 				
 				if (timeLayer != NULL)
 				{
-					if (timeLayer->decreaseCollisionTime())
-						CCDirector::sharedDirector()->pause();
+					Warning *warning = (Warning *)this->getChildByTag(20);
+					if (!warning->getIsVisible())
+					{
+						if (timeLayer->decreaseCollisionTime())
+							CCDirector::sharedDirector()->pause();
+						warning->setIsVisible(true);
+					}
+
 				}
 				break;
 			}
@@ -327,6 +342,10 @@ void RectWorld :: update(ccTime dt)
 		score->setBest(score->getCurrentDistance());
 }
 
+//-------------------------------------------------------------------------
+// TODO: Make the calculation more complex!!!!!
+//-------------------------------------------------------------------------
+
  void RectWorld :: addTarget()
 {
 
@@ -340,11 +359,11 @@ void RectWorld :: update(ccTime dt)
 	int topRectSize = 0;
 	int bottomRectSize = 0;
 
-	if (times > 100)
-	{
-		actualDuration -= 0.5f;
-		times = 0;
-	}
+	//if (times > 100)
+	//{
+	//	actualDuration -= 0.5f;
+	//	times = 0;
+	//}
 
 	if(actualDuration < 1)
 		actualDuration = 1.0f;
@@ -370,7 +389,7 @@ void RectWorld :: update(ccTime dt)
 
 	int count = _barriers->count();
 
-	int initialX = (float) winSize.width - barrier->getContentSize().width / 2 + count * 200;
+	int initialX = (float) winSize.width - barrier->getContentSize().width / 2 + 600 ;
 	int initialY = winSize.height * ( rand() % 641 ) / 641 - barrier->getContentSize().height / 2 ;
 
 	if(initialY < barrier->getContentSize().height / 2 )
@@ -391,7 +410,7 @@ void RectWorld :: update(ccTime dt)
 	this->addChild(barrier);
 	_barriers->addObject(barrier);
 
-	CCFiniteTimeAction* actionMove = CCMoveTo::actionWithDuration((ccTime)actualDuration, ccp(-initialX - winSize.width, initialY));
+	CCFiniteTimeAction* actionMove = CCMoveTo::actionWithDuration((ccTime)actualDuration, ccp(0 - barrier->getContentSize().width / 2, initialY));
 	CCFiniteTimeAction* actionMoveDone = CCCallFuncN::actionWithTarget(this, callfuncN_selector(RectWorld::spriteMoveFinished));
 
 	barrier->runAction(CCSequence::actions(actionMove, actionMoveDone, NULL));
@@ -582,4 +601,24 @@ void RectWorld::pauseResumePressed()
 	{
 		(*it)->resumeSchedulerAndActions();
 	}
+}
+
+void RectWorld :: removeObjects(ccTime dt)
+{
+	Warning *warning = (Warning*)this->getChildByTag(20);
+	if (warning->getIsVisible())
+	{
+		CCFiniteTimeAction* actionMove = CCMoveTo::actionWithDuration((ccTime)1.0f, ccp(0, 0));
+		CCFiniteTimeAction* deleteWarning = CCCallFuncN::actionWithTarget(this, callfuncN_selector(RectWorld::removeWarning));
+		this->runAction(CCSequence::actions(actionMove, deleteWarning, NULL));
+	}
+}
+
+void RectWorld :: removeWarning(CCNode* sender)
+{
+	//CCSprite *object = (CCSprite*)sender;
+	//this->removeChild(object, true);
+	Warning *warning = (Warning*)this->getChildByTag(20);
+	warning->setIsVisible(false);
+
 }

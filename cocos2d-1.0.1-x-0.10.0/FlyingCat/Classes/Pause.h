@@ -6,12 +6,13 @@
 
 #include "cocos2d.h"
 #include "BtnProtocal.h"
-
+#include "Board.h"
+#include "BoardParent.h"
 #include "SimpleAudioEngine.h"
 
 using namespace cocos2d;
 
-class Pause : public CCLayerColor
+class Pause : public BoardParent
 {
 public:
 	// Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
@@ -20,27 +21,16 @@ public:
 	// there's no 'id' in cpp, so we recommend to return the exactly class pointer
 	static cocos2d::CCScene* scene();
 
-	void setDistance(long);
+	virtual void setItem1Descriptor(std::string);
 
-	void setStar(long);
+	virtual void setItem2Descriptor(std::string);
 
-	void gameResume(CCObject*);
+	virtual void button1Func(CCObject*);
 
-	void mainMenu(CCObject*);
+	virtual void button2Func(CCObject*);
 
-	void setDelegate(BtnProtocal *iamadelegate);
 	// implement the "static node()" method manually
 	LAYER_NODE_FUNC(Pause);
-protected:
-	CCLabelBMFont *_currentDistance;
-	CCLabelBMFont *_currentStar;
-	CCLabelBMFont *_title;
-	CCLabelBMFont *_distanceLabel;
-	CCLabelBMFont *_starLabel;
-	CCLabelBMFont *_resume;
-	CCLabelBMFont *_mainMenu;
-
-	BtnProtocal   *_delegate;
 
 };
 

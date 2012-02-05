@@ -6,6 +6,7 @@ using namespace CocosDenshion;
 
 
 #include "HelloWorldScene.h"
+#include "Board.h"
 
 using namespace cocos2d;
 

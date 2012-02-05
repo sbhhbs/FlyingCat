@@ -39,6 +39,8 @@ public:
 
 	void spriteMoveFinished(CCNode*); 
 
+	void gameOver();
+
 	void removeWarning(CCNode* sender);
 
 	void gameLogic(ccTime);
@@ -49,7 +51,14 @@ public:
 
 	void removeObjects(ccTime dt);
 
+	void restart();
+
+	void setDelegate(BtnProtocal *);
+
+	virtual void pauseRestartPressed();
+
 	virtual void pauseResumePressed();
+
 protected:
 	CCMutableArray<CCSprite*> *_barriers;
 	CCMutableArray<CCSprite*> *_stars;
@@ -60,6 +69,7 @@ protected:
 	float _gravityAccelerate;
 	float _motiveAccelerate;
 	float _currentSpeed;
+	BtnProtocal *_delegate;
 };
 
 #endif  // __HELLOWORLD_SCENE_H__

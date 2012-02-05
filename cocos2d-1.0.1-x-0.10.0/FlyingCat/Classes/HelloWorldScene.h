@@ -7,9 +7,11 @@
 
 #include "SimpleAudioEngine.h"
 
+#include "BtnProtocal.h"
+
 USING_NS_CC;
 
-class HelloWorld : public cocos2d::CCLayer
+class HelloWorld : public cocos2d::CCLayer, public BtnProtocal
 {
 public:
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
@@ -21,6 +23,8 @@ public:
 	virtual bool ccTouchBegan(CCTouch *pTouch,CCEvent *pEvent);
 
 	virtual void ccTouchEnded(CCTouch*, CCEvent*);
+
+	virtual void pauseRestartPressed();
 
     // implement the "static node()" method manually
     LAYER_NODE_FUNC(HelloWorld);

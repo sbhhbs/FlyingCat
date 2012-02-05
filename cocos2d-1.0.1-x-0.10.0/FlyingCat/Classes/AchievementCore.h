@@ -3,7 +3,7 @@
 #include "AchievementList.h"
 #include "cocos2d.h"
 #include <queue>
-#define MAX_ACHIEVEMENT_COUNT 3
+#define MAX_ACHIEVEMENT_COUNT 2
 
 USING_NS_CC;
 

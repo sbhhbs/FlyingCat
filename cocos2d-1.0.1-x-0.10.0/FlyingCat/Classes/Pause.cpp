@@ -11,69 +11,49 @@ bool Pause :: init()
 		//////////////////////////////////////////////////////////////////////////
 		// super init first
 		//////////////////////////////////////////////////////////////////////////
-		CCLayerColor::initWithColor(ccc4(0, 0, 0, 100));
+		CCLayerColor::initWithColor(ccc4(0, 0, 0, 0));
 		CC_BREAK_IF(! CCLayer::init());
 
-		CCSprite *back = CCSprite::spriteWithFile("back.png");
+		//CCSprite *back = CCSprite::spriteWithFile("back.png");
+
+		CCLayerColor *colorLayer = CCLayerColor::layerWithColor(ccc4(0,0,0,255));
+		colorLayer->setOpacity(0);
+		colorLayer->runAction(CCFadeTo::actionWithDuration(0.2f,100));
+
+		this->addChild(colorLayer);
 
 		CCSize winSize = CCDirector::sharedDirector()->getWinSize();
 
-		back->setPosition(ccp(winSize.width / 2, winSize.height / 2));
+		//back->setPosition(ccp(winSize.width / 2, winSize.height / 2));
 
-		this->addChild(back);
+		//
+		//this->addChild(back);
 
 		//CCTouchDispatcher::sharedDispatcher()->addTargetedDelegate(this,0,true);
 
 		_delegate = NULL;
 
-		_currentStar = CCLabelBMFont::labelWithString("100","Bigfnt.fnt");
-		_currentDistance = CCLabelBMFont::labelWithString("100","Bigfnt.fnt");
-		_title = CCLabelBMFont::labelWithString("Game Paused", "Bigfnt.fnt");
-		_distanceLabel = CCLabelBMFont::labelWithString("Distance : ", "Bigfnt.fnt");
-		_starLabel = CCLabelBMFont::labelWithString("Star gathered : ", "Bigfnt.fnt");
-		_resume = CCLabelBMFont::labelWithString("Resume", "Bigfnt.fnt");
-		_mainMenu = CCLabelBMFont::labelWithString("Main Menu", "Bigfnt.fnt");
+		Board *_board = Board :: node();
+		
+		_board->setTitle("Pause");
+		_board->setItem1Text("Distance : ");
+		_board->setItem2Text("Stars : ");
+		_board->setButton1Text("Resume");
+		_board->setButton2Text("Main Menu");
+		_board->setTag(1);
+	
+		//_board->setScale(0.5);
 
-		_currentStar->setScale(0.5f);
-		_currentDistance->setScale(0.5f);
-		_distanceLabel->setScale(0.5f);
-		_starLabel->setScale(0.5f);
-		_resume->setScale(0.5f);
-		_mainMenu->setScale(0.5f);
+		BoardParent *parent = this;
 
-		CCMenuItemLabel *resume = CCMenuItemLabel::itemWithLabel(_resume, this, menu_selector(Pause::gameResume));	
-		CCMenuItemLabel *menu = CCMenuItemLabel::itemWithLabel(_mainMenu, this, menu_selector(Pause::mainMenu));
+		// Set Button1 Func && Button2 Func
 
-		_title->setPosition(ccp(winSize.width / 2,winSize.height / 2 + back->getContentSize().height / 2 - _currentStar->getContentSize().height / 2 - 100));
+		_board->setBoardParent(parent);
 
-		_distanceLabel->setPosition(ccp(winSize.width / 2 - back->getContentSize().width / 2 + _distanceLabel->getContentSize().width / 2, 
-			_title->getPosition().y - _title->getContentSize().height / 2 -  _distanceLabel->getContentSize().height / 2 ));
+		this->addChild(_board);
 
-		_currentDistance->setPosition(ccp(back->getPosition().x +  back->getContentSize().width / 2 - 80 - _currentDistance->getContentSize().width / 2, 
-			_title->getPosition().y - _title->getContentSize().height / 2 -  _distanceLabel->getContentSize().height / 2));
-
-		_starLabel->setPosition(ccp(winSize.width / 2 - back->getContentSize().width / 2 + _starLabel->getContentSize().width / 2 - 40, 
-			_currentDistance->getPosition().y - _currentDistance->getContentSize().height / 2 -  _starLabel->getContentSize().height / 2 + 10));
-
-		_currentStar->setPosition(ccp(back->getPosition().x + back->getContentSize().width / 2 - 80 - _currentDistance->getContentSize().width / 2, 
-			_currentDistance->getPosition().y - _currentDistance->getContentSize().height / 2 -  _starLabel->getContentSize().height / 2 + 10));
-
-		resume->setPosition(ccp(winSize.width / 2 - back->getContentSize().width / 2 + _starLabel->getContentSize().width / 2 - 40, 
-			_currentStar->getPosition().y - _currentStar->getContentSize().height / 2 - 3 * _resume->getContentSize().height / 2 + 50));
-
-		menu->setPosition(ccp(back->getPosition().x + back->getContentSize().width / 2 - 40 - _currentDistance->getContentSize().width / 2,
-			_currentStar->getPosition().y - _currentStar->getContentSize().height / 2 - 3 * _resume->getContentSize().height / 2 + 50));
-
-		CCMenu *pauseMenu = CCMenu::menuWithItems(resume, menu, NULL);
-		pauseMenu->setPosition(CCPointZero);
-		pauseMenu->setTag(1);
-
-		this->addChild(_currentStar);
-		this->addChild(_currentDistance);
-		this->addChild(_title);
-		this->addChild(_distanceLabel);
-		this->addChild(_starLabel);
-		this->addChild(pauseMenu);
+		_board->setPosition(ccpAdd(_board->getPosition(),ccp(0,-500)));
+		_board->runAction(CCEaseBounceOut::actionWithAction(CCMoveBy::actionWithDuration(0.2f,ccp(0,500))));
 
 		bRet = true;
 	} while (0);
@@ -102,26 +82,22 @@ CCScene* Pause::scene()
 	return scene;
 }
 
-void Pause :: setStar(long star)
+void Pause :: setItem2Descriptor(std::string text)
 {
-	char buffer[8];
+	Board *board = (Board *)this->getChildByTag(1);
 
-	sprintf(buffer,"%d",star);
-
-	_currentStar->setString(buffer);
+	board->setItem2Descriptor(text);
 
 }
 
-void Pause :: setDistance(long distance)
+void Pause :: setItem1Descriptor(std::string text)
 {
-	char buffer[8];
-
-	sprintf(buffer,"%d",distance);
-
-	_currentDistance->setString(buffer);
+	Board *board = (Board *)this->getChildByTag(1);
+	
+	board->setItem1Descritor(text);
 }
 
-void Pause :: gameResume(CCObject* object)
+void Pause :: button1Func(CCObject* object)
 {
 	assert(_delegate);
 	_delegate->pauseResumePressed();
@@ -130,12 +106,7 @@ void Pause :: gameResume(CCObject* object)
 	
 }
 
-void Pause :: mainMenu(CCObject* object)
+void Pause :: button2Func(CCObject* object)
 {
 	// TODO : Add the main menu part
-}
-
-void Pause::setDelegate( BtnProtocal *iamadelegate )
-{
-	this->_delegate = iamadelegate;
 }

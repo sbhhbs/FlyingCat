@@ -18,6 +18,9 @@ bool TimeLayer :: decreaseRestTime()
 
 	sprintf(buffer,"Time Left : %d",_restTime);
 
+	if (_restTime <= 10)
+		_timeLabel->setColor(ccc3(255, 0, 0));
+
 	_timeLabel->setString(buffer);
 
 	_clockTick = true;
@@ -28,8 +31,12 @@ bool TimeLayer :: decreaseRestTime()
 		return false;
 }
 
+void TimeLayer :: setDelegate(BtnProtocal *delegate)
+{
+	_delegate = delegate;
+}
 
-bool TimeLayer ::decreaseCollisionTime()
+bool TimeLayer :: decreaseCollisionTime()
 {
 	if (_clockTick)
 	{

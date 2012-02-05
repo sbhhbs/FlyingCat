@@ -3,6 +3,7 @@
 #include "Cat1.h"
 #include "RectWorld.h"
 #include "ScoreLayer.h"
+#include "DataCore.h"
 
 using namespace cocos2d;
 
@@ -19,7 +20,7 @@ CCScene* HelloWorld::scene()
         HelloWorld *layer = HelloWorld::node();
         CC_BREAK_IF(! layer);
 
-        // add layer as a child to scene
+        // add layer as a ch ild to scene
         scene->addChild(layer);
     } while (0);
 
@@ -46,6 +47,8 @@ bool HelloWorld::init()
 		RectWorld *rectWorld = RectWorld::node();
 		rectWorld->setTag(3);
 
+		rectWorld->setDelegate(this);
+
 		this->addChild(rectWorld, 0);
 
 
@@ -55,14 +58,14 @@ bool HelloWorld::init()
 		cat1->flyDownAnimation(); 
 		cat1->setTag(1);
 
-		rectWorld->addChild(cat1, 1);
+		rectWorld->addChild(cat1, 2);
 		 
 
 		ScoreLayer *scores = ScoreLayer::node();
 		scores->setTag(2);
 		scores->appear();
 
-		rectWorld->addChild(scores, 2);
+		rectWorld->addChild(scores, 3);
 		//this->setIsTouchEnabled(true);
 
 		CCTouchDispatcher::sharedDispatcher()->addTargetedDelegate(this,0,true);
@@ -109,4 +112,32 @@ void HelloWorld :: ccTouchEnded(CCTouch* touch, CCEvent* event)
 		rectWorld->ccTouchEnded(touch, event);
 	}
 
+}
+
+void HelloWorld :: pauseRestartPressed()
+{
+
+	RectWorld *rectWorld = RectWorld::node();
+	rectWorld->setTag(3);
+
+	rectWorld->setDelegate(this);
+
+	this->addChild(rectWorld, 0);
+
+
+	Cat1* cat1 = Cat1::node();
+
+	cat1->setPosition(ccp(200,200));
+	cat1->flyDownAnimation(); 
+	cat1->setTag(1);
+
+	rectWorld->addChild(cat1, 2);
+
+
+	ScoreLayer *scores = ScoreLayer::node();
+	scores->setTag(2);
+	scores->appear();
+	scores->setBest(DataCore::sharedCore()->getBestScoreFor(kWorldRect, kTimeTrial));
+
+	rectWorld->addChild(scores, 3);
 }

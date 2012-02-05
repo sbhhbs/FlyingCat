@@ -34,7 +34,7 @@ typedef enum
 class DataCore
 {
 public:
-	
+	                           
 	static DataCore* sharedCore();
 
 	//Call this before sharedCore to check first run status!
@@ -58,7 +58,7 @@ public:
 	//return true if it is a new best!
 	bool finishAGameWithScore(int score, WorldType world, GameMode mode);
 	int getBestScoreFor(WorldType world, GameMode mode);
-
+	    
 
 
 	//////////////////////////////////////////////////////////////////////////

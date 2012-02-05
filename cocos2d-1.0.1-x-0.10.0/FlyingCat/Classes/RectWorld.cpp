@@ -7,6 +7,11 @@
 #include "ScoreLayer.h"
 #include "Warning.h"
 #include "TimeLayer.h"
+#include "GameOver.h"
+#include "DataCore.h"
+#include "AchievementCore.h"
+#include "TimeCount.h"
+
 
 using namespace cocos2d;
 
@@ -53,6 +58,8 @@ bool RectWorld::init()
 		CCMenuItemImage *pPauseItem = CCMenuItemImage::itemFromNormalImage("pause.png","pause.png",this,menu_selector(RectWorld::menuPause));
 		CC_BREAK_IF(! pPauseItem);
 
+		
+
 		// Place the menu item bottom-right conner.
 		pPauseItem->setPosition(ccp(22, 22));
 		// Create a menu with the "close" menu item, it's an auto release object.
@@ -62,14 +69,22 @@ bool RectWorld::init()
 		CC_BREAK_IF(! pMenu);
 
 		// Add the menu to HelloWorld layer as a child layer.
-		this->addChild(pMenu, 10);
+		this->addChild(pMenu, 4);
 
 		// Add the warning layer
 		Warning *warning = Warning :: node();
 		
 		warning->setIsVisible(false);
 		warning->setTag(20);
-		this->addChild(warning, 20);
+		this->addChild(warning, 3);
+
+		TimeCount *timeCount = TimeCount :: node();
+		timeCount->continueCount();
+		timeCount->setIsVisible(false);
+		timeCount->setTag(30);
+
+		this->addChild(timeCount);
+		
 
         // Create a "close" menu item with close icon, it's an auto release object.
 
@@ -97,15 +112,29 @@ bool RectWorld::init()
 		this->schedule(schedule_selector(RectWorld::gameLogic), 1.0);
 		this->schedule(schedule_selector(RectWorld::update));
 		this->schedule(schedule_selector(RectWorld::removeObjects, 1.0f));
-		
+
+		AchivementCore::sharedCore()->setLayer(this);
+
 
 		//CCTouchDispatcher::sharedDispatcher()->addTargetedDelegate(this,0,true);
+		if (_type == 1)
+		{
 
-		if (_type == 3)
+
+		}
+		else if (_type == 2)
+		{
+
+		}
+		else if (_type == 3)
 		{
 			TimeLayer *timeLayer = TimeLayer :: node();
 			timeLayer->setInitalTime(60);
 			timeLayer->setTag(4);
+
+			timeLayer->setDelegate(this);
+
+
 			this->addChild(timeLayer, 3);
 
 			this->schedule(schedule_selector(RectWorld::clockPassBy), 1.0f);
@@ -119,6 +148,11 @@ bool RectWorld::init()
 
 void RectWorld::menuPause(CCObject* pSender)
 {
+	_gameOver = true;
+
+	TimeCount *timeCount = (TimeCount *)this->getChildByTag(30);
+	timeCount->stopCount();
+
     this->pauseSchedulerAndActions();
 
 	CCMutableArray<CCSprite*> :: CCMutableArrayIterator it;
@@ -144,13 +178,21 @@ void RectWorld::menuPause(CCObject* pSender)
 
 	ScoreLayer *score = (ScoreLayer*)this->getChildByTag(2);
 
-	pause->setDistance(score->getCurrentDistance());
-	pause->setStar(score->getCurrentStar());
+	char buffer[8];
 
-	TimeLayer *timeLayer = (TimeLayer*)this->getChildByTag(4);
-	timeLayer->setIsVisible(false);
+	itoa(score->getCurrentDistance(), buffer, 10);
+	pause->setItem1Descriptor(buffer);
 
-	this->addChild(pause,5);
+	itoa(score->getCurrentStar(), buffer, 10);
+	pause->setItem2Descriptor(buffer);
+
+	if (_type == 3)
+	{
+		TimeLayer *timeLayer = (TimeLayer*)this->getChildByTag(4);
+		timeLayer->setIsVisible(false);
+	}
+
+	this->addChild(pause,4);
 
 	
 }
@@ -163,7 +205,7 @@ RectWorld :: RectWorld()
 	_gravityAccelerate = 9.8 / 3;				// just like on the other moon : )
 	_motiveAccelerate = 9.8 / 3;				// will it be like on the moon?
 	_currentSpeed = 0;							// well the cat need a current speed, right?
-	_type = 3;								
+	_type = 2;								
 
 	// If _type == 1, then it's classic mode, which means that the player will have 3 lives
 	// If _type == 2, then it's survial mode, which means that the player will only have 1 life
@@ -226,6 +268,8 @@ void RectWorld :: update(ccTime dt)
 	if (_gameOver)
 		return;
 
+	AchivementCore::sharedCore()->update();
+
 	Cat1 *cat1 = (Cat1*)this->getChildByTag(1);
 
 	if(cat1 == NULL)
@@ -286,7 +330,7 @@ void RectWorld :: update(ccTime dt)
 				// TODO: Add the case 1 codes
 				break;
 			case 2:
-				// TODO: Add the case 2 codes
+				gameOver();
 				break;
 			case 3:
 			{
@@ -298,8 +342,11 @@ void RectWorld :: update(ccTime dt)
 					if (!warning->getIsVisible())
 					{
 						if (timeLayer->decreaseCollisionTime())
-							CCDirector::sharedDirector()->pause();
-						warning->setIsVisible(true);
+						{
+							gameOver();
+						}
+						else
+							warning->setIsVisible(true);
 					}
 
 				}
@@ -407,7 +454,7 @@ void RectWorld :: update(ccTime dt)
 	}
 
 	barrier->setPosition(ccp(initialX, initialY));
-	this->addChild(barrier);
+	this->addChild(barrier, 1);
 	_barriers->addObject(barrier);
 
 	CCFiniteTimeAction* actionMove = CCMoveTo::actionWithDuration((ccTime)actualDuration, ccp(0 - barrier->getContentSize().width / 2, initialY));
@@ -441,7 +488,7 @@ void RectWorld :: update(ccTime dt)
 			initialY = barrier->getPosition().y + barrier->getContentSize().height / 2 + 180 + barrierSecond->getContentSize().height / 2;
 
 		barrierSecond->setPosition(ccp(initialX, initialY));
-		this->addChild(barrierSecond);
+		this->addChild(barrierSecond, 1);
 		_barriers->addObject(barrierSecond);
 
 		actionMove = CCMoveTo::actionWithDuration((ccTime)actualDuration, ccp(0 - barrierSecond->getContentSize().width / 2, initialY));
@@ -480,7 +527,7 @@ void RectWorld :: update(ccTime dt)
 			initialY = barrier->getPosition().y - barrier->getContentSize().height / 2 - 180 - barrierSecond->getContentSize().height / 2;
 
 		barrierSecond->setPosition(ccp(initialX, initialY));
-		this->addChild(barrierSecond);
+		this->addChild(barrierSecond, 1);
 		_barriers->addObject(barrierSecond);
 
 		actionMove = CCMoveTo::actionWithDuration((ccTime)actualDuration, ccp(0 - barrierSecond->getContentSize().width / 2, initialY));
@@ -537,7 +584,7 @@ void RectWorld :: update(ccTime dt)
 
 		_stars->addObject(star);
 
-		this->addChild(star);
+		this->addChild(star, 1);
 
 	}
 }
@@ -573,12 +620,15 @@ void RectWorld :: clockPassBy(ccTime dt)
 	if(timeLayer != NULL)
 	{
 		if (timeLayer->decreaseRestTime())
-			CCDirector::sharedDirector()->pause();
+			gameOver();
 	}
 }
 
 void RectWorld::pauseResumePressed()
 {
+	TimeCount *timeCount = (TimeCount *)this->getChildByTag(30);
+	timeCount->continueCount();
+
 	this->resumeSchedulerAndActions();
 
 	CCMenu *pItem = (CCMenu *)this->getChildByTag(6);
@@ -587,8 +637,11 @@ void RectWorld::pauseResumePressed()
 	ScoreLayer *scoreLayer = (ScoreLayer *)this->getChildByTag(2);
 	scoreLayer->setIsVisible(true);
 
-	TimeLayer *timeLayer = (TimeLayer*)this->getChildByTag(4);
-	timeLayer->setIsVisible(true);
+	if (_type == 3)
+	{
+		TimeLayer *timeLayer = (TimeLayer*)this->getChildByTag(4);
+		timeLayer->setIsVisible(true);
+	}
 
 	CCMutableArray<CCSprite *> :: CCMutableArrayIterator it;
 
@@ -601,6 +654,8 @@ void RectWorld::pauseResumePressed()
 	{
 		(*it)->resumeSchedulerAndActions();
 	}
+
+	_gameOver = false;
 }
 
 void RectWorld :: removeObjects(ccTime dt)
@@ -621,4 +676,74 @@ void RectWorld :: removeWarning(CCNode* sender)
 	Warning *warning = (Warning*)this->getChildByTag(20);
 	warning->setIsVisible(false);
 
+}
+
+void RectWorld::gameOver()
+{
+	TimeCount *timeCount = (TimeCount *)this->getChildByTag(30);
+	
+	timeCount->stopCount();
+
+	ScoreLayer *scores = (ScoreLayer *)this->getChildByTag(2);
+	
+	DataCore::sharedCore()->finishAGameWithScore(scores->getCurrentDistance(), kWorldRect, kTimeTrial);
+	DataCore::sharedCore()->addTotalDistance(scores->getCurrentDistance());
+	DataCore::sharedCore()->addTotalStar(scores->getCurrentStar());
+	DataCore::sharedCore()->addTotalTime(timeCount->getTime());
+
+	_gameOver = true;
+
+	this->pauseSchedulerAndActions();
+
+	CCMutableArray<CCSprite*> :: CCMutableArrayIterator it;
+
+	for(it = _barriers->begin(); it != _barriers->end(); it++)
+	{
+		(*it)->pauseSchedulerAndActions();
+
+	}
+
+	for(it = _stars->begin(); it != _stars->end(); it++)
+	{
+		(*it)->pauseSchedulerAndActions();
+	}
+	
+	GameOver *gameEnd = GameOver::node();
+	gameEnd->setDelegate(this);
+
+	CCMenu *pItem = (CCMenu *)this->getChildByTag(6);
+	pItem->setIsVisible(false);
+
+	
+	ScoreLayer *scoreLayer = (ScoreLayer *)this->getChildByTag(2);
+	scoreLayer->setIsVisible(false);
+
+	ScoreLayer *score = (ScoreLayer*)this->getChildByTag(2);
+
+	char buffer[8];
+
+	itoa(score->getCurrentDistance(), buffer, 10);
+	gameEnd->setItem1Descriptor(buffer);
+
+	itoa(score->getCurrentStar(), buffer, 10);
+	gameEnd->setItem2Descriptor(buffer);
+
+	if (_type == 3)
+	{
+		TimeLayer *timeLayer = (TimeLayer*)this->getChildByTag(4);
+		timeLayer->setIsVisible(false);
+	}
+
+	this->addChild(gameEnd,4);
+}
+
+void RectWorld :: setDelegate(BtnProtocal * delegate)
+{
+	_delegate = delegate;
+}
+
+void RectWorld :: pauseRestartPressed()
+{
+	_delegate->pauseRestartPressed();
+	this->removeFromParentAndCleanup(true);
 }

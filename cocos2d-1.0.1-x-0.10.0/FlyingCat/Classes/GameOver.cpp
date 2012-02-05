@@ -1,6 +1,6 @@
 #include "GameOver.h"
 #include "RectWorld.h"
-
+#include "Board.h"
 using namespace cocos2d;
 
 bool GameOver :: init()
@@ -26,54 +26,28 @@ bool GameOver :: init()
 
 		_delegate = NULL;
 
-		_finalStar = CCLabelBMFont::labelWithString("100","Bigfnt.fnt");
-		_finalDistance = CCLabelBMFont::labelWithString("100","Bigfnt.fnt");
-		_title = CCLabelBMFont::labelWithString("Game Over", "Bigfnt.fnt");
-		_distanceLabel = CCLabelBMFont::labelWithString("Distance : ", "Bigfnt.fnt");
-		_starLabel = CCLabelBMFont::labelWithString("Star gathered : ", "Bigfnt.fnt");
-		_restart = CCLabelBMFont::labelWithString("Restart", "Bigfnt.fnt");
-		_mainMenu = CCLabelBMFont::labelWithString("Main Menu", "Bigfnt.fnt");
+		Board *_board = Board :: node();
 
-		_finalStar->setScale(0.5f);
-		_finalDistance->setScale(0.5f);
-		_distanceLabel->setScale(0.5f);
-		_starLabel->setScale(0.5f);
-		_restart->setScale(0.5f);
-		_mainMenu->setScale(0.5f);
+		_board->setTitle("Game Over");
+		_board->setItem1Text("Distance : ");
+		_board->setItem2Text("Stars : ");
+		_board->setButton1Text("Restart");
+		_board->setButton2Text("Main Menu");
+		_board->setTag(1);
 
-		CCMenuItemLabel *restart = CCMenuItemLabel::itemWithLabel(_restart, this, menu_selector(GameOver::gameRestart));	
-		CCMenuItemLabel *menu = CCMenuItemLabel::itemWithLabel(_mainMenu, this, menu_selector(GameOver::mainMenu));
+		//_board->setScale(0.5);
 
-		_title->setPosition(ccp(winSize.width / 2,winSize.height / 2 + back->getContentSize().height / 2 - _finalStar->getContentSize().height / 2 - 100));
+		BoardParent *parent = this;
 
-		_distanceLabel->setPosition(ccp(winSize.width / 2 - back->getContentSize().width / 2 + _distanceLabel->getContentSize().width / 2, 
-			_title->getPosition().y - _title->getContentSize().height / 2 -  _distanceLabel->getContentSize().height / 2 ));
+		// Set Button1 Func && Button2 Func
 
-		_finalDistance->setPosition(ccp(back->getPosition().x +  back->getContentSize().width / 2 - 80 - _finalDistance->getContentSize().width / 2, 
-			_title->getPosition().y - _title->getContentSize().height / 2 -  _distanceLabel->getContentSize().height / 2));
+		_board->setBoardParent(parent);
 
-		_starLabel->setPosition(ccp(winSize.width / 2 - back->getContentSize().width / 2 + _starLabel->getContentSize().width / 2 - 40, 
-			_finalDistance->getPosition().y - _finalDistance->getContentSize().height / 2 -  _starLabel->getContentSize().height / 2 + 10));
+		this->addChild(_board);
 
-		_finalStar->setPosition(ccp(back->getPosition().x + back->getContentSize().width / 2 - 80 - _finalDistance->getContentSize().width / 2, 
-			_finalDistance->getPosition().y - _finalDistance->getContentSize().height / 2 -  _starLabel->getContentSize().height / 2 + 10));
+		_board->setPosition(ccpAdd(_board->getPosition(),ccp(0,-500)));
+		_board->runAction(CCEaseBounceOut::actionWithAction(CCMoveBy::actionWithDuration(0.2f,ccp(0,500))));
 
-		_restart->setPosition(ccp(winSize.width / 2 - back->getContentSize().width / 2 + _starLabel->getContentSize().width / 2 - 40, 
-			_finalStar->getPosition().y - _finalStar->getContentSize().height / 2 - 3 * _restart->getContentSize().height / 2 + 50));
-
-		menu->setPosition(ccp(back->getPosition().x + back->getContentSize().width / 2 - 40 - _finalDistance->getContentSize().width / 2,
-			_finalStar->getPosition().y - _finalStar->getContentSize().height / 2 - 3 * _restart->getContentSize().height / 2 + 50));
-
-		CCMenu *pauseMenu = CCMenu::menuWithItems(restart, menu, NULL);
-		pauseMenu->setPosition(CCPointZero);
-		pauseMenu->setTag(1);
-
-		this->addChild(_finalStar);
-		this->addChild(_finalDistance);
-		this->addChild(_title);
-		this->addChild(_distanceLabel);
-		this->addChild(_starLabel);
-		this->addChild(pauseMenu);
 
 		bRet = true;
 	} while (0);
@@ -102,40 +76,30 @@ CCScene* GameOver::scene()
 	return scene;
 }
 
-void GameOver :: setStar(long star)
+void GameOver :: setItem2Descriptor(std::string text)
 {
-	char buffer[8];
-
-	sprintf(buffer,"%d",star);
-
-	_finalStar->setString(buffer);
+	Board *board = (Board *)this->getChildByTag(1);
+	board->setItem2Descriptor(text.c_str());
 
 }
 
-void GameOver :: setDistance(long distance)
+void GameOver :: setItem1Descriptor(std::string text)
 {
-	char buffer[8];
+	Board *board = (Board *)this->getChildByTag(1);
 
-	sprintf(buffer,"%d",distance);
-
-	_finalDistance->setString(buffer);
+	board->setItem1Descritor(text);
 }
 
-void GameOver :: gameRestart(CCObject* object)
+void GameOver :: button1Func(CCObject* object)
 {
 	assert(_delegate);
-	_delegate->pauseResumePressed(); // TODO : Add the restart function
+	_delegate->pauseRestartPressed();
 
-	this->removeFromParentAndCleanup(true);
+	//this->removeFromParentAndCleanup(true);
 
 }
 
-void GameOver :: mainMenu(CCObject* object)
+void GameOver :: button2Func(CCObject* object)
 {
 	// TODO : Add the main menu part
-}
-
-void GameOver::setDelegate( BtnProtocal *iamadelegate )
-{
-	this->_delegate = iamadelegate;
 }

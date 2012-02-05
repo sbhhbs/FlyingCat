@@ -7,6 +7,9 @@ AchivementCore::AchivementCore()
 {
 	layer = NULL;
 
+	_achievementList[0] = new Achievement_Flying10000();
+	_achievementList[1] = new Achievement_Stars100();
+
 	for(int i = 0; i < MAX_ACHIEVEMENT_COUNT ; i++)
 	{
 		lastStatus[i] = _achievementList[i]->isDone();

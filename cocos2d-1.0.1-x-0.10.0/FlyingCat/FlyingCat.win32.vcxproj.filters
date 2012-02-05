@@ -88,6 +88,15 @@
     <ClInclude Include="Classes\GameOver.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="Classes\Board.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\BoardParent.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\TimeCount.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="win32\main.cpp">
@@ -139,6 +148,15 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="Classes\GameOver.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\Board.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\BoardParent.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Classes\TimeCount.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>

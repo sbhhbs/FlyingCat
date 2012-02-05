@@ -1,18 +1,17 @@
 // @ Author: Trine
 // @ Last Modified : 2012/1/30
 
-#ifndef _GAME_OVER_H_
-#define _GAME_OVER_H_
+#ifndef _BOARD_PARENT_H_
+#define _BOARD_PARENT_H_
 
 #include "cocos2d.h"
 #include "BtnProtocal.h"
-#include "BoardParent.h"
-
+#include "Board.h"
 #include "SimpleAudioEngine.h"
 
 using namespace cocos2d;
 
-class GameOver : public BoardParent
+class BoardParent : public CCLayerColor
 {
 public:
 	// Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
@@ -29,9 +28,13 @@ public:
 
 	virtual void button2Func(CCObject*);
 
+	void setDelegate(BtnProtocal *iamadelegate);
 	// implement the "static node()" method manually
-	LAYER_NODE_FUNC(GameOver);
 
+	LAYER_NODE_FUNC(BoardParent);
+	
+protected:
+	BtnProtocal   *_delegate;
 
 };
 
